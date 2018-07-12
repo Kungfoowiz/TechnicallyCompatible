@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Balance Point Test</title>
+
+<script>
+
+document.addEventListener('DOMContentLoaded', function(){ 
+    
+	BalancePoint = function(input) {
+	var length = input.length;
+	
+	if( length == 1){
+	    return input[0];
+	}
+	
+	if( length == 2 ){
+	    return Math.abs(input[0] - input[1]);
+	}
+	
+	var leftSum = 0, rightSum = 0;
+	
+	for( var i = 0; i < length; i++){
+	    rightSum += input[i];
+	}
+	
+	var difference = 9007199254740991, lastDifference = 9007199254740991, savedIndex = 0;
+	
+	for( var i = 0; i < length; i++){
+	    var value = input[i];
+	    
+	    leftSum = leftSum + value;
+	    rightSum = rightSum - value;
+	    
+	    difference = Math.min(difference, Math.abs(rightSum - leftSum));
+            if( difference < lastDifference){
+                savedIndex = i;
+                lastDifference = difference;
+            }
+	    
+	    if( difference == 0 ){
+	        return 0;
+	    }
+	}
+	
+	return savedIndex - 1;
+	};
+
+	var result = BalancePoint([ 2, 7, 4, 5, -3, 8, 9, -1 ]);
+	// var result = BalancePoint([1,2,3,4,5]);
+
+	var span = document.getElementsByClassName("answer")[0].textContent = result;
+	
+}, false);
+
+</script>
+
+
+</head>
+
+<body>
+
+<article>
+	<p>The balance point of [ 2, 7, 4, 5, -3, 8, 9, -1 ] is ... <span class="answer"></span></p>
+</article>
+
+<aside>
+	<p>This can be vastly improved, took a test on <a href="http://TechnicallyCompatible.com">TechnicallyCompatible.com</a>, and I hate taking tech tests...</p>
+</aside>
+
+</body>
+</html>
+
+
